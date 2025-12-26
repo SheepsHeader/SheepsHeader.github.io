@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 轮播图功能
-    initCarousel();
+    // 多轮播图功能
+    initCarousels();
 
     // 图片画廊点击放大效果
     initImageGallery();
@@ -59,97 +59,91 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('%c希望你能通过这个页面了解我更多～', 'color: #764ba2; font-size: 14px;');
 });
 
-// 轮播图初始化
-function initCarousel() {
-    const carouselTrack = document.querySelector('.carousel-track');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    
-    if (!carouselTrack || slides.length === 0) return;
+// 多轮播图初始化（每个模块一个轮播，互不干扰）
+function initCarousels() {
+    const carousels = document.querySelectorAll('.carousel-container');
+    if (!carousels.length) return;
 
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-    let autoPlayInterval;
+    carousels.forEach(container => {
+        const track = container.querySelector('.carousel-track');
+        const slides = Array.from(container.querySelectorAll('.carousel-slide'));
+        const dots = Array.from(container.querySelectorAll('.dot'));
+        const prevBtn = container.querySelector('.carousel-btn.prev');
+        const nextBtn = container.querySelector('.carousel-btn.next');
 
-    // 更新轮播图位置
-    function updateCarousel() {
-        carouselTrack.style.transform = `translateX(-${currentSlide * 25}%)`;
-        
-        // 更新活动状态
-        slides.forEach((slide, index) => {
-            slide.classList.toggle('active', index === currentSlide);
-        });
-        
+        if (!track || !slides.length) return;
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let autoPlayInterval;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                startAutoPlay();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startAutoPlay();
+            });
+        }
+
         dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                startAutoPlay();
+            });
         });
-    }
 
-    // 下一张
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
+        container.addEventListener('mouseenter', stopAutoPlay);
+        container.addEventListener('mouseleave', startAutoPlay);
+
+        // 初始化
         updateCarousel();
-    }
-
-    // 上一张
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-    }
-
-    // 跳转到指定幻灯片
-    function goToSlide(index) {
-        currentSlide = index;
-        updateCarousel();
-    }
-
-    // 自动播放
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, 4000);
-    }
-
-    // 停止自动播放
-    function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
-    }
-
-    // 事件监听
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            stopAutoPlay();
-            startAutoPlay();
-        });
-    }
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            stopAutoPlay();
-            startAutoPlay();
-        });
-    }
-
-    // 点击指示点
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            goToSlide(index);
-            stopAutoPlay();
-            startAutoPlay();
-        });
+        startAutoPlay();
     });
-
-    // 鼠标悬停时暂停自动播放
-    const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        carouselContainer.addEventListener('mouseenter', stopAutoPlay);
-        carouselContainer.addEventListener('mouseleave', startAutoPlay);
-    }
-
-    // 初始化自动播放
-    startAutoPlay();
 }
 
 // 图片画廊初始化

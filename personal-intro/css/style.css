@@ -1,4 +1,4 @@
-/* 全局样式 */
+/* ========== 基础与布局 ========== */
 * {
     margin: 0;
     padding: 0;
@@ -6,313 +6,428 @@
 }
 
 body {
-    font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    background:
+        linear-gradient(135deg, rgba(255, 122, 26, 0.12), rgba(15, 23, 42, 0.9)),
+        url('../images/bg/卡通羊.png') center/cover no-repeat fixed,
+        #0f172a;
     min-height: 100vh;
-    padding: 20px;
-    color: #333;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-    animation: fadeIn 0.8s ease-in;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 头部样式 */
-.header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 40px 20px;
-    text-align: center;
-    color: white;
-}
-
-.avatar-container {
-    margin-bottom: 20px;
-}
-
-.avatar {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+    padding: 32px 16px;
+    color: #111827;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 60px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    animation: bounce 2s infinite;
 }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+.container {
+    width: 100%;
+    max-width: 1080px;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.75),
+        0 0 0 1px rgba(148, 163, 184, 0.35);
+    overflow: hidden;
+    position: relative;
 }
 
-.title {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(120deg, rgba(255, 122, 26, 0.18), transparent 55%),
+        linear-gradient(-145deg, rgba(15, 23, 42, 0.5), transparent 60%);
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: -1;
 }
 
-.subtitle {
-    font-size: 1.2em;
+/* ========== 头部：头像 + 文案 ========== */
+.header {
+    padding: 36px 32px 24px;
+    position: relative;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(255, 250, 235, 0.9), transparent 55%),
+        linear-gradient(135deg, #0f172a, #111827);
+    color: #f9fafb;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    overflow: hidden;
+}
+
+.header::before,
+.header::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    border: 2px solid rgba(252, 211, 77, 0.45);
+    opacity: 0.7;
+}
+
+.header::before {
+    width: 260px;
+    height: 260px;
+    top: -120px;
+    right: -60px;
+    transform: rotate(-18deg);
+}
+
+.header::after {
+    width: 180px;
+    height: 180px;
+    bottom: -80px;
+    left: 40%;
+    transform: rotate(22deg);
+}
+
+.avatar-container {
+    position: relative;
+    z-index: 1;
+}
+
+.avatar-ring {
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 30% 0%, #fed7aa, #f97316);
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.75),
+        0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.avatar-ring::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: inherit;
+    background-image: url("../images/bg/卡通羊.png");
+    background-size: cover;
+    background-position: center;
+    filter: contrast(1.02) saturate(1.08);
+    mix-blend-mode: screen;
     opacity: 0.9;
 }
 
-/* 区块样式 */
-.section {
-    padding: 30px;
-    border-bottom: 1px solid #e0e0e0;
+.avatar {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    backdrop-filter: blur(18px);
+    border: 2px solid rgba(248, 250, 252, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    color: #111827;
+    background: radial-gradient(circle at 20% 0%, #ffffff, #fed7aa);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.75),
+        0 0 0 1px rgba(248, 250, 252, 0.6);
+    transition: transform 0.35s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-.section:last-child {
-    border-bottom: none;
+.avatar:hover {
+    transform: translateY(-4px) rotate(-3deg) scale(1.03);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.header-text {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subtitle-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(254, 215, 170, 0.7);
+    color: #fed7aa;
+    background: rgba(15, 23, 42, 0.6);
+    width: fit-content;
+}
+
+.subtitle-tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #f97316;
+    box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.35);
+}
+
+.subtitle {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: #fefce8;
+}
+
+.subtitle span.highlight {
+    color: #fed7aa;
+}
+
+.header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #e5e7eb;
+}
+
+.header-chip {
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(209, 213, 219, 0.4);
+    background: rgba(15, 23, 42, 0.65);
+}
+
+/* ========== 通用分区 ========== */
+.section {
+    padding: 24px 32px 8px;
+    position: relative;
 }
 
 .section-header {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
 }
 
-.section-header h2 {
-    font-size: 1.8em;
-    color: #667eea;
-    display: inline-block;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #667eea;
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title span.icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: #f97316;
+    color: #111827;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.55);
+}
+
+.section-title h2 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0f172a;
+}
+
+.section-accent {
+    flex: 1;
+    height: 1px;
+    margin-left: 14px;
+    background-image: linear-gradient(90deg, #f97316, transparent 65%);
+    opacity: 0.7;
 }
 
 /* 性格卡片 */
 .personality-card {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
+    margin-top: 10px;
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+    background: linear-gradient(120deg, #fff7ed, #fefce8);
+    border: 1px solid rgba(248, 250, 252, 0.9);
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
 }
 
 .personality-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .personality-icon {
-    font-size: 2em;
+    font-size: 22px;
 }
 
 .personality-text {
-    font-size: 1.3em;
+    font-size: 14px;
     font-weight: 500;
-    color: #555;
+    color: #4b5563;
 }
 
-/* 兴趣爱好卡片 */
+/* ========== 兴趣卡片与轮播 ========== */
+.hobby-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 12px;
+}
+
 .hobby-card {
     display: flex;
     gap: 20px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 25px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-left: 5px solid #667eea;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 18px 18px 16px;
+    border-radius: 22px;
+    background: #f9fafb;
+    border: 1px solid rgba(209, 213, 219, 0.85);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
     position: relative;
     overflow: hidden;
 }
 
 .hobby-card::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    inset: 0;
+    background:
+        linear-gradient(135deg, rgba(254, 215, 170, 0.5), transparent 60%),
+        linear-gradient(-135deg, rgba(248, 250, 252, 0.7), transparent 65%);
+    mix-blend-mode: soft-light;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.35s ease;
     pointer-events: none;
-}
-
-.hobby-card:hover {
-    transform: translateX(10px) translateY(-5px);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
-    background: #fff;
 }
 
 .hobby-card:hover::before {
     opacity: 1;
 }
 
-.hobby-card:last-child {
-    margin-bottom: 0;
-}
-
 .hobby-icon {
-    font-size: 3em;
     flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #e7a475, rgba(254, 215, 170, 0.7));
+    color: #f9fafb;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 15px;
-    color: white;
+    font-size: 30px;
+    box-shadow: 0 14px 30px rgba(249, 115, 22, 0.55);
 }
 
 .hobby-content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.hobby-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .hobby-content h3 {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.hobby-subtag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f97316;
 }
 
 .hobby-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 8px;
 }
 
 .tag {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
     font-weight: 500;
-    transition: all 0.3s ease;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9a3412;
+    background: #ffedd5;
+    border: 1px solid rgba(248, 171, 104, 0.9);
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .tag:hover {
-    transform: scale(1.1);
-    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(248, 171, 104, 0.6);
+    background: #fed7aa;
 }
 
 .hobby-desc {
-    color: #666;
-    font-size: 1em;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    line-height: 1.6;
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.7;
 }
 
-/* 小说图片画廊 */
-.hobby-images {
-    margin-top: 15px;
-}
-
-.image-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.gallery-image {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.gallery-image:hover {
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-    z-index: 10;
-}
-
-/* 游戏和音乐图片 */
-.game-image-container,
-.music-image-container {
-    margin-top: 15px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.game-image,
-.music-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: all 0.4s ease;
-    display: block;
-}
-
-.game-image:hover,
-.music-image:hover {
-    transform: scale(1.1);
-}
-
-/* 轮播图样式 */
+/* 统一轮播容器 */
 .carousel-container {
-    margin-top: 20px;
-    position: relative;
-    border-radius: 15px;
+    margin-top: 10px;
+    border-radius: 18px;
+    background: #020617;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    background: #000;
+    position: relative;
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.85);
 }
 
 .carousel-wrapper {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 230px;
     overflow: hidden;
 }
 
 .carousel-track {
     display: flex;
-    width: 400%;
     height: 100%;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 .carousel-slide {
-    width: 25%;
+    min-width: 100%;
     height: 100%;
-    flex-shrink: 0;
     position: relative;
-    opacity: 0.7;
-    transition: opacity 0.6s ease;
+    filter: saturate(1.08) contrast(1.05);
 }
 
-.carousel-slide.active {
-    opacity: 1;
+.carousel-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.05), transparent 55%);
+    mix-blend-mode: soft-light;
 }
 
 .carousel-image {
@@ -322,192 +437,162 @@ body {
     display: block;
 }
 
+.carousel-overlay-label {
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fefce8;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(249, 250, 251, 0.35);
+}
+
 .carousel-controls {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    padding: 20px;
+    inset: auto 0 0;
+    padding: 10px 12px 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    justify-content: space-between;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
 }
 
 .carousel-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: 1px solid rgba(249, 250, 251, 0.55);
+    background: rgba(15, 23, 42, 0.9);
+    color: #f9fafb;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    font-weight: bold;
-    line-height: 1;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 
 .carousel-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
+    background: #f97316;
+    border-color: #fed7aa;
 }
 
 .carousel-btn:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
 }
 
 .carousel-dots {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 7px;
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(248, 250, 252, 0.5);
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.dot:hover {
-    background: rgba(255, 255, 255, 0.6);
-    transform: scale(1.2);
+    transition: width 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .dot.active {
-    background: white;
-    width: 12px;
-    height: 12px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    width: 18px;
+    background: #f97316;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.9);
 }
 
-/* 生活方式 */
+/* ========== 生活方式与页脚 ========== */
 .lifestyle-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    margin: 6px 0 22px;
 }
 
 .lifestyle-item {
-    display: flex;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 1px dashed rgba(209, 213, 219, 0.9);
+    display: inline-flex;
     align-items: center;
-    gap: 15px;
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-}
-
-.lifestyle-item:hover {
-    background: #e9ecef;
-    transform: translateX(5px);
+    gap: 8px;
+    font-size: 13px;
+    color: #4b5563;
 }
 
 .lifestyle-icon {
-    font-size: 1.5em;
+    font-size: 18px;
 }
 
-/* 页脚 */
 .footer {
-    background: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-    color: #666;
-    font-size: 0.9em;
+    padding: 12px 24px 18px;
+    text-align: right;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    border-top: 1px solid rgba(229, 231, 235, 0.95);
+    background: #f9fafb;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .title {
-        font-size: 2em;
+/* ========== 响应式 ========== */
+@media (max-width: 900px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .avatar-ring {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 720px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .header {
+        padding: 26px 20px 18px;
+    }
+
+    .section {
+        padding: 18px 20px 6px;
     }
 
     .hobby-card {
         flex-direction: column;
-        text-align: center;
-    }
-
-    .hobby-icon {
-        margin: 0 auto;
-    }
-
-    .hobby-tags {
-        justify-content: center;
-    }
-
-    .image-gallery {
-        grid-template-columns: repeat(2, 1fr);
     }
 
     .carousel-wrapper {
-        height: 250px;
-    }
-
-    .game-image,
-    .music-image {
-        height: 180px;
-    }
-
-    .lifestyle-content {
-        gap: 10px;
-    }
-
-    .lifestyle-item {
-        font-size: 1em;
+        height: 210px;
     }
 }
 
 @media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
-    .section {
-        padding: 20px;
-    }
-
-    .title {
-        font-size: 1.8em;
-    }
-
-    .avatar {
-        width: 100px;
-        height: 100px;
-        font-size: 50px;
-    }
-
-    .image-gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .gallery-image {
-        height: 150px;
+    .subtitle {
+        font-size: 18px;
     }
 
     .carousel-wrapper {
-        height: 200px;
+        height: 190px;
     }
 
-    .game-image,
-    .music-image {
-        height: 150px;
-    }
-
-    .carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 20px;
+    .footer {
+        text-align: center;
+        letter-spacing: 0.16em;
     }
 }
 
